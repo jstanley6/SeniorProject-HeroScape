@@ -21,7 +21,7 @@ public class ImageScrollList : MonoBehaviour
     void LoadImages()
     {
         
-        Sprite[] sprites = Resources.LoadAll<Sprite>("HeroscapePieces"); // Place images in Assets/Resources/Images
+        Sprite[] sprites = Resources.LoadAll<Sprite>("HeroscapePieces");
         allImages = sprites.ToList();
 
         foreach (Sprite sprite in allImages)
