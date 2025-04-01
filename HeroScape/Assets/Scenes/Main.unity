@@ -583,7 +583,7 @@ GameObject:
   - component: {fileID: 276178355}
   - component: {fileID: 276178354}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: ScrollListImages
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -605,10 +605,10 @@ RectTransform:
   m_Father: {fileID: 2125590683}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 311.5118, y: -14.578995}
-  m_SizeDelta: {x: -623.0237, y: -29.157}
+  m_AnchoredPosition: {x: -70.48828, y: -14.578857}
+  m_SizeDelta: {x: 140.97632, y: -29.157}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &276178354
 MonoBehaviour:
@@ -1693,7 +1693,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -338.50153, y: -2.8664}
+  m_AnchoredPosition: {x: -338.50153, y: -2.866394}
   m_SizeDelta: {x: 95.2883, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1203819510
@@ -1837,10 +1837,10 @@ RectTransform:
   m_Father: {fileID: 2125590683}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1.5333862, y: 204.20892}
-  m_SizeDelta: {x: 18.5189, y: -395.2672}
+  m_AnchoredPosition: {x: 1.5332031, y: -10.791016}
+  m_SizeDelta: {x: 18.5189, y: 34.732788}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1225051893
 MonoBehaviour:
@@ -2907,7 +2907,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -317, y: -94.24208}
+  m_AnchoredPosition: {x: -317, y: -94.24219}
   m_SizeDelta: {x: -646.2346, y: 120.6773}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1691607194
@@ -3414,9 +3414,9 @@ MonoBehaviour:
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
