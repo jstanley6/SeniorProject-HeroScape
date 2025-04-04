@@ -31,7 +31,7 @@ public class CameraControl : MonoBehaviour
         if (Input.GetMouseButton(1))
         {
             float horizontalInput = Input.GetAxis("Mouse X");
-            float verticalInput = Input.GetAxis("Mouse Y");
+            float verticalInput = -1 * Input.GetAxis("Mouse Y");
 
             //transform.Rotate(Vector3.up, horizontalInput * rotationSpeed * Time.deltaTime);
             //transform.Rotate(Vector3.left, verticalInput * rotationSpeed * Time.deltaTime);

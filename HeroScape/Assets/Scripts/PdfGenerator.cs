@@ -19,10 +19,17 @@ public class PdfGenerator : MonoBehaviour
     public Text victoryText;
     public Text rulesText;
 
+    public Button printButton;
+
     // Start is called before the first frame update
     void Start()
     {
         QuestPDF.Settings.License = LicenseType.Community;
+        printButton.onClick.AddListener(PrintOnClick);
+    }
+
+    void PrintOnClick()
+    {
         // code in your main method
         Document.Create(container =>
         {
