@@ -9,6 +9,8 @@ public class TestingHexGrid : MonoBehaviour {
 
     private GridHexXZ<GridObject> gridHexXZ;
     private GridObject lastGridObject;
+    public int width = 30;
+    public int height = 30;
 
     private class GridObject {
         public Transform visualTransform;
@@ -24,8 +26,6 @@ public class TestingHexGrid : MonoBehaviour {
     }
 
     private void Awake() {
-        int width = 30;
-        int height = 30;
         float cellSize = 1f;
         gridHexXZ = 
             new GridHexXZ<GridObject>(width, height, cellSize, new Vector3(width/-2, 0, height/-2), (GridHexXZ<GridObject> g, int x, int y) => new GridObject());
