@@ -13,21 +13,40 @@ public class CameraControl : MonoBehaviour
     public float minZoom = 5f;
 
     private Vector3 offset;
+    private Vector3 initialPosition;
+    private Quaternion initialRotation;
+
+    private Quaternion targetRotation;
+
+    public float panSpeed = 5f;
+    private Vector3 lastPosition;
+
+    private bool isIsometric = false;
 
     void Start()
     {
+
         if(gridObject != null)
         {
             offset = transform.position - gridObject.transform.position;
             distance = offset.magnitude;
+            initialPosition = transform.position;
+            initialRotation = transform.rotation;
         }
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        Rotation();
+        zooming();
+        panChangeLocation();
+        viewSnapping();
+    }
 
+    void Rotation()
+    {
         if (Input.GetMouseButton(1))
         {
             float horizontalInput = Input.GetAxis("Mouse X");
@@ -41,14 +60,157 @@ public class CameraControl : MonoBehaviour
 
             offset = transform.position - gridObject.transform.position;
         }
+    }
 
+    void zooming()
+    {
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
-        distance -= scrollInput * zoomSpeed;
-        distance = Mathf.Clamp(distance, minZoom, maxZoom);
+        if(scrollInput != 0)
+        {
+            distance -= scrollInput * zoomSpeed;
+            distance = Mathf.Clamp(distance, minZoom, maxZoom);
 
-        transform.position = gridObject.transform.position + offset.normalized * distance;
+            transform.position = gridObject.transform.position + offset.normalized * distance;
 
-        transform.LookAt(gridObject.transform.position);
+            offset = transform.position - gridObject.transform.position;
 
+            transform.LookAt(gridObject.transform.position);
+        }
+        
+    }
+
+    void panChangeLocation()
+    {
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetMouseButton(0))
+        {
+            float verticalInput = Input.GetAxis("Mouse Y");
+            float horizontalInput = Input.GetAxis("Mouse X");
+            if (Input.GetAxis("Mouse X")<0)
+            {
+                Vector3 newPos = transform.position - Vector3.left * horizontalInput * Time.deltaTime * panSpeed;
+                transform.position = newPos;
+                print("mouse moved left");
+            } else if(Input.GetAxis("Mouse X")>0)
+            {
+                Vector3 newPos = transform.position + Vector3.right * horizontalInput * Time.deltaTime * panSpeed;
+                transform.position = newPos;
+                print("mouse moved right");
+            } else if(Input.GetAxis("Mouse Y") < 0)
+            {
+                Vector3 newPos = transform.position - Vector3.down * verticalInput * Time.deltaTime * panSpeed;
+                transform.position = newPos;
+                print("mouse moved down");
+            } else if(Input.GetAxis("Mouse Y") > 0)
+            {
+                //transform.Translate(0, panSpeed * Time.deltaTime, 0);
+                Vector3 newPos = transform.position + Vector3.up * verticalInput * Time.deltaTime * panSpeed;
+                transform.position = newPos;
+                print("mouse moved up");
+            }
+            
+        }
+    }
+
+    void isometricView()
+    {
+        isIsometric = !isIsometric;
+
+        StopAllCoroutines();
+
+        Camera cam = GetComponent<Camera>();
+
+        if(isIsometric)
+        {
+
+            if(cam != null)
+            {
+                cam.orthographic = true;
+            }
+
+            Vector3 isoOffset = new Vector3(1,1,-1).normalized * distance;
+            Vector3 targetPos = gridObject.transform.position + isoOffset;
+            Quaternion targetRotation = Quaternion.LookRotation(gridObject.transform.position - targetPos);
+            StartCoroutine(SmoothMoveAndRotate(targetPos, targetRotation));
+        } else
+        {
+            if(cam != null)
+            {
+                cam.orthographic = false;
+            }
+            StartCoroutine(SmoothMoveAndRotate(initialPosition, initialRotation));
+        }
+    }
+
+    void snapToAngle(Vector3 direction)
+    {
+        //transform.position = gridObject.transform.position + direction.normalized * distance;
+        //transform.LookAt(gridObject.transform.position);
+        Vector3 targetPosition = gridObject.transform.position + direction.normalized * distance;
+        Quaternion targetRotation = Quaternion.LookRotation(gridObject.transform.position - targetPosition);
+
+        StopAllCoroutines();
+        StartCoroutine(SmoothMoveAndRotate(targetPosition, targetRotation));
+    }
+
+    IEnumerator SmoothMoveAndRotate(Vector3 targetPosition, Quaternion targetRotation)
+    {
+        float duration = 1f;
+        float elapsed = 0f;
+
+        Vector3 startingPos = transform.position;
+        Quaternion startingRot = transform.rotation;
+
+        while(elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.SmoothStep(0, 1, elapsed / duration);
+
+            transform.position = Vector3.Lerp(startingPos, targetPosition, t);
+            transform.rotation = Quaternion.Slerp(startingRot, targetRotation, t);
+
+            yield return null;
+        }
+        transform.position = targetPosition;
+        transform.rotation = targetRotation;
+    }
+
+    void resetCamera()
+    {
+        //transform.position = initialPosition;
+        //transform.rotation = initialRotation;
+        StopAllCoroutines();
+        StartCoroutine(SmoothMoveAndRotate(initialPosition, initialRotation));
+    }
+
+    void viewSnapping()
+    {
+        if(Input.GetKey("1"))
+        {
+            snapToAngle(Vector3.forward);
+        }
+        if(Input.GetKey("2"))
+        {
+            snapToAngle(Vector3.back);
+        }
+        if(Input.GetKey("3"))
+        {
+            snapToAngle(Vector3.left);
+        }
+        if (Input.GetKey("4"))
+        {
+            snapToAngle(Vector3.right);
+        }
+        if(Input.GetKey("5"))
+        {
+            snapToAngle(Vector3.up);
+        }
+        if(Input.GetKey("6"))
+        {
+            resetCamera();
+        }
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            isometricView();
+        }
     }
 }

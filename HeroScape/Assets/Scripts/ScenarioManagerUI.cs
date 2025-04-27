@@ -9,12 +9,15 @@ public class ScenarioManagerUI : MonoBehaviour
 
     public InputField titleInputField;
     public Dropdown scenarioTitlesDropdown;
+    public string currentScenarioTitle;
 
     private List<string> listOfscenarios = new List<string>();
     private int selectedScenarioIndex = -1;
 
     void Start()
     {
+        currentScenarioTitle = "";
+        titleInputField.text = currentScenarioTitle;
         titleInputField.onEndEdit.AddListener(OnEnterPressed);
         scenarioTitlesDropdown.onValueChanged.AddListener(SelectScenario);
     }
@@ -30,7 +33,7 @@ public class ScenarioManagerUI : MonoBehaviour
     void OnEnterPressed(string input)
     {
         string title = input.Trim();
-        if (string.IsNullOrEmpty(title)) return; // Ignore empty input
+        if (string.IsNullOrEmpty(title)) return; // ignore empty input
 
         if (selectedScenarioIndex == -1)
         {
