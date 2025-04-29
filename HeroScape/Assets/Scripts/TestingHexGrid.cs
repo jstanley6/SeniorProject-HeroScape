@@ -8,11 +8,11 @@ public class TestingHexGrid : MonoBehaviour {
     [SerializeField] private Transform pfHex;
 
     private GridHexXZ<GridObject> gridHexXZ;
-    private GridObject lastGridObject;
+    public GridObject lastGridObject;
     public int width = 30;
     public int height = 30;
 
-    private class GridObject {
+    public class GridObject {
         public Transform visualTransform;
 
         public void Show() {
