@@ -19,14 +19,14 @@ Kit: Basic
 GrassTile24: 1
 GrassTile7: 1
 GrassTile3: 1
-GrassTile2: 1
-GrassTile1: 1
+GrassTile2: 0
+GrassTile1: 0
 StoneTile24: 0 
 StoneTile7: 0
 StoneTile3: 0
 StoneTile2: 0
 StoneTile1: 0
-SandTile24: 0
+SandTile24: 1
 SandTile7: 0
 SandTile3: 0
 SandTile2: 0
