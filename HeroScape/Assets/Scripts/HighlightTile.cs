@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Piece : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class HighlightTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    public Material highlightMat;
+    public Material defaultMat;
+    private EditorController editor;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,33 +18,19 @@ public class Piece : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoi
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-    private EditorController editor;
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        editor.ClickedOnPiece(this);
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
         
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        
+        if(!editor.holdingPiece)
+            GetComponent<Renderer>().material = highlightMat;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        
+        if (!editor.holdingPiece)
+            GetComponent<Renderer>().material = defaultMat;
     }
 
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        
-    }
 }

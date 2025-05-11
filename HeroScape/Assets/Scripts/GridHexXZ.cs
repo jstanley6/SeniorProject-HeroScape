@@ -14,7 +14,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using CodeMonkey.Utils;
 
 public class GridHexXZ<TGridObject> {
 
@@ -35,13 +34,13 @@ public class GridHexXZ<TGridObject> {
     private Vector3 originPosition;
     private TGridObject[,] gridArray;
 
-    public GridHexXZ(int width, int height, float cellSize, Vector3 originPosition, Func<GridHexXZ<TGridObject>, int, int, TGridObject> createGridObject) {
-        this.width = width;
-        this.height = height;
+    public GridHexXZ(int sizeX, int sizeZ, float cellSize, Vector3 originPosition, Func<GridHexXZ<TGridObject>, int, int, TGridObject> createGridObject) {
+        this.width = sizeX;
+        this.height = sizeZ;
         this.cellSize = cellSize;
         this.originPosition = originPosition;
 
-        gridArray = new TGridObject[width, height];
+        gridArray = new TGridObject[sizeX, sizeZ];
 
         for (int x = 0; x < gridArray.GetLength(0); x++) {
             for (int z = 0; z < gridArray.GetLength(1); z++) {
@@ -51,7 +50,7 @@ public class GridHexXZ<TGridObject> {
 
         bool showDebug = false;
         if (showDebug) {
-            TextMesh[,] debugTextArray = new TextMesh[width, height];
+            TextMesh[,] debugTextArray = new TextMesh[sizeX, sizeZ];
 
             for (int x = 0; x < gridArray.GetLength(0); x++) {
                 for (int z = 0; z < gridArray.GetLength(1); z++) {
@@ -62,8 +61,8 @@ public class GridHexXZ<TGridObject> {
                     Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x + 1, z), Color.white, 100f);
                 }
             }
-            Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
-            Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
+            Debug.DrawLine(GetWorldPosition(0, sizeZ), GetWorldPosition(sizeX, sizeZ), Color.white, 100f);
+            Debug.DrawLine(GetWorldPosition(sizeX, 0), GetWorldPosition(sizeX, sizeZ), Color.white, 100f);
 
             OnGridObjectChanged += (object sender, OnGridObjectChangedEventArgs eventArgs) => {
                 debugTextArray[eventArgs.x, eventArgs.z].text = gridArray[eventArgs.x, eventArgs.z]?.ToString();

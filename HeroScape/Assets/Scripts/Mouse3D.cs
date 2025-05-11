@@ -19,8 +19,8 @@ public class Mouse3D : MonoBehaviour {
             transform.position = raycastHit.point;
         }
         if (mouseTransform != null) {
-            //mouseTransform.position = GetMouseWorldPosition();
-            mouseTransform.position = Vector3.Lerp(mouseTransform.position, GetMouseWorldPosition(), Time.deltaTime * 20f);
+            mouseTransform.position = GetMouseWorldPosition();
+            //mouseTransform.position = Vector3.Lerp(mouseTransform.position, GetMouseWorldPosition(), Time.deltaTime * 20f);
         }
     }
 
