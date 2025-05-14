@@ -25,8 +25,9 @@ public class Piece : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoi
     private EditorController editor;
     public TerrainType terrainType;
     public PieceSize size;
-    public Material highlightMat;
     public Material defaultMat;
+    public Material highlightMat;
+    public Material selectedMat;
     public Vector3Int gridPosition = new Vector3Int(0, 0, 0);
 
     public void OnPointerClick(PointerEventData eventData)

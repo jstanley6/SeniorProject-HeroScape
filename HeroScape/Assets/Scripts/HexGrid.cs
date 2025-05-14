@@ -15,7 +15,6 @@ public class HexGrid : MonoBehaviour {
     public GridObject lastGridObject;
     public int sizeX = 30;
     public int sizeZ = 30;
-    Dictionary<Vector3Int, Piece> terrainPieces = new Dictionary<Vector3Int, Piece>();
     //public ItemInGrid[][] gridContentArray;
 
     public class GridObject {
@@ -35,12 +34,6 @@ public class HexGrid : MonoBehaviour {
         }
     }
 
-    public class ItemInGrid
-    {
-        public Piece parentPiece;
-
-    }
-
     private void Awake() {
         editor = FindObjectOfType<EditorController>();
         gridHexXZLayers = new List<GridHexXZ<GridObject>>();
@@ -49,7 +42,7 @@ public class HexGrid : MonoBehaviour {
         AddLayer();
     }
 
-    private void AddLayer()
+    public void AddLayer()
     {
         gridHexXZLayers.Add(
             new GridHexXZ<GridObject>(sizeX, sizeZ, cellSize, new Vector3(sizeX / -2, gridHexXZLayers.Count() / 5, sizeZ / -2), (GridHexXZ<GridObject> g, int x, int y) => new GridObject()));
@@ -73,7 +66,7 @@ public class HexGrid : MonoBehaviour {
         if (lastGridObject != null || editor.activelayer != 0) {
             lastGridObject.Hide();
         }
-        if (editor.activelayer >= gridHexXZLayers.Count())
+        while (editor.activelayer >= gridHexXZLayers.Count())
         {
             AddLayer();
         }

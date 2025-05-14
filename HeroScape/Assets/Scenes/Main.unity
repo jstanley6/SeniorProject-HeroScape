@@ -1218,6 +1218,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: be9cda8523d78434e98957f4e46b23ea, type: 2}
     - target: {fileID: 7812081879200233942, guid: 292a2e23be22767408aff25563ae53c5, type: 3}
+      propertyPath: selectedMat
+      value: 
+      objectReference: {fileID: 2100000, guid: ae1ba55bcb3adcd42bef8c7abd3d1e2a, type: 2}
+    - target: {fileID: 7812081879200233942, guid: 292a2e23be22767408aff25563ae53c5, type: 3}
       propertyPath: highlightMat
       value: 
       objectReference: {fileID: 2100000, guid: 5a51470e45ab32f49a8fc1335d5c7144, type: 2}
@@ -1534,8 +1538,6 @@ MonoBehaviour:
   grid: {fileID: 1861691151}
   targetHex: {fileID: 0}
   selectedPiece: {fileID: 0}
-  highlightPieceMat: {fileID: 2100000, guid: 5a51470e45ab32f49a8fc1335d5c7144, type: 2}
-  selectedPieceMat: {fileID: 2100000, guid: ae1ba55bcb3adcd42bef8c7abd3d1e2a, type: 2}
   activelayer: 0
   mouse: {fileID: 1360091843}
   holdingPiece: 0
@@ -3108,6 +3110,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2915396473268724924, guid: 31a4b3698b4f9de4ab07e336eb88a991, type: 3}
+      propertyPath: defaultMat
+      value: 
+      objectReference: {fileID: 2100000, guid: be9cda8523d78434e98957f4e46b23ea, type: 2}
+    - target: {fileID: -2915396473268724924, guid: 31a4b3698b4f9de4ab07e336eb88a991, type: 3}
+      propertyPath: selectedMat
+      value: 
+      objectReference: {fileID: 2100000, guid: ae1ba55bcb3adcd42bef8c7abd3d1e2a, type: 2}
+    - target: {fileID: -2915396473268724924, guid: 31a4b3698b4f9de4ab07e336eb88a991, type: 3}
+      propertyPath: highlightMat
+      value: 
+      objectReference: {fileID: 2100000, guid: 5a51470e45ab32f49a8fc1335d5c7144, type: 2}
     - target: {fileID: 2108412285256078505, guid: 31a4b3698b4f9de4ab07e336eb88a991, type: 3}
       propertyPath: m_Name
       value: GrassTile1
@@ -3961,15 +3975,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1017233336752749027, guid: 22ce66a1f8df17542be7d37c1131df91, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1017233336752749027, guid: 22ce66a1f8df17542be7d37c1131df91, type: 3}
+      propertyPath: m_TagString
+      value: TileBase
       objectReference: {fileID: 0}
     - target: {fileID: 2119553070370421095, guid: 22ce66a1f8df17542be7d37c1131df91, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2119553070370421095, guid: 22ce66a1f8df17542be7d37c1131df91, type: 3}
+      propertyPath: m_TagString
+      value: TileBase
       objectReference: {fileID: 0}
     - target: {fileID: 2393214174800587939, guid: 22ce66a1f8df17542be7d37c1131df91, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2393214174800587939, guid: 22ce66a1f8df17542be7d37c1131df91, type: 3}
+      propertyPath: m_TagString
+      value: TileBase
       objectReference: {fileID: 0}
     - target: {fileID: 4157511765062323732, guid: 22ce66a1f8df17542be7d37c1131df91, type: 3}
       propertyPath: m_Layer
@@ -4021,11 +4047,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4905494826982673282, guid: 22ce66a1f8df17542be7d37c1131df91, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905494826982673282, guid: 22ce66a1f8df17542be7d37c1131df91, type: 3}
+      propertyPath: m_TagString
+      value: TileBase
       objectReference: {fileID: 0}
     - target: {fileID: 4950413362442785202, guid: 22ce66a1f8df17542be7d37c1131df91, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4950413362442785202, guid: 22ce66a1f8df17542be7d37c1131df91, type: 3}
+      propertyPath: m_TagString
+      value: TileBase
       objectReference: {fileID: 0}
     - target: {fileID: 5185536871695350521, guid: 22ce66a1f8df17542be7d37c1131df91, type: 3}
       propertyPath: m_Layer
@@ -4037,8 +4071,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7078169889983616741, guid: 22ce66a1f8df17542be7d37c1131df91, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7078169889983616741, guid: 22ce66a1f8df17542be7d37c1131df91, type: 3}
+      propertyPath: m_TagString
+      value: TileBase
+      objectReference: {fileID: 0}
+    - target: {fileID: 7248364772820415597, guid: 22ce66a1f8df17542be7d37c1131df91, type: 3}
+      propertyPath: defaultMat
+      value: 
+      objectReference: {fileID: 2100000, guid: be9cda8523d78434e98957f4e46b23ea, type: 2}
+    - target: {fileID: 7248364772820415597, guid: 22ce66a1f8df17542be7d37c1131df91, type: 3}
+      propertyPath: selectedMat
+      value: 
+      objectReference: {fileID: 2100000, guid: ae1ba55bcb3adcd42bef8c7abd3d1e2a, type: 2}
+    - target: {fileID: 7248364772820415597, guid: 22ce66a1f8df17542be7d37c1131df91, type: 3}
+      propertyPath: highlightMat
+      value: 
+      objectReference: {fileID: 2100000, guid: 5a51470e45ab32f49a8fc1335d5c7144, type: 2}
     - target: {fileID: 7265545525153377096, guid: 22ce66a1f8df17542be7d37c1131df91, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -4049,7 +4099,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8541027736494219565, guid: 22ce66a1f8df17542be7d37c1131df91, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541027736494219565, guid: 22ce66a1f8df17542be7d37c1131df91, type: 3}
+      propertyPath: m_TagString
+      value: TileBase
       objectReference: {fileID: 0}
     - target: {fileID: 8664684439392992587, guid: 22ce66a1f8df17542be7d37c1131df91, type: 3}
       propertyPath: m_Layer
@@ -4284,6 +4338,22 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5359325092002443628, guid: 3f5cd3ec203d7d3409f7046528816a9c, type: 3}
+      propertyPath: defaultMat
+      value: 
+      objectReference: {fileID: 2100000, guid: 62b8baa21023c5946bb4ac6dbf408a85, type: 2}
+    - target: {fileID: 5359325092002443628, guid: 3f5cd3ec203d7d3409f7046528816a9c, type: 3}
+      propertyPath: selectedMat
+      value: 
+      objectReference: {fileID: 2100000, guid: f73d199f3fbca0946a99a859d8ecb2b0, type: 2}
+    - target: {fileID: 5359325092002443628, guid: 3f5cd3ec203d7d3409f7046528816a9c, type: 3}
+      propertyPath: terrainType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5359325092002443628, guid: 3f5cd3ec203d7d3409f7046528816a9c, type: 3}
+      propertyPath: highlightMat
+      value: 
+      objectReference: {fileID: 2100000, guid: e7b9d640658665a4dab66423fe54b7a7, type: 2}
     - target: {fileID: 6907952309496066175, guid: 3f5cd3ec203d7d3409f7046528816a9c, type: 3}
       propertyPath: m_RootOrder
       value: 1
