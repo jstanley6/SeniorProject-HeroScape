@@ -655,6 +655,7 @@ GameObject:
   - component: {fileID: 176022633}
   - component: {fileID: 176022632}
   - component: {fileID: 176022635}
+  - component: {fileID: 176022636}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -8054,15 +8055,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2242666715078936019, guid: 292a2e23be22767408aff25563ae53c5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2242666715078936019, guid: 292a2e23be22767408aff25563ae53c5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2242666715078936019, guid: 292a2e23be22767408aff25563ae53c5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2
+      value: -0.668
       objectReference: {fileID: 0}
     - target: {fileID: 2242666715078936019, guid: 292a2e23be22767408aff25563ae53c5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8095,6 +8096,10 @@ PrefabInstance:
     - target: {fileID: 6737634310633251077, guid: 292a2e23be22767408aff25563ae53c5, type: 3}
       propertyPath: m_Name
       value: StoneTile24
+      objectReference: {fileID: 0}
+    - target: {fileID: 6737634310633251077, guid: 292a2e23be22767408aff25563ae53c5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 292a2e23be22767408aff25563ae53c5, type: 3}
