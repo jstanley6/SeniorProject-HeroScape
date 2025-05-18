@@ -58,11 +58,12 @@ public class EditorController : MonoBehaviour
                 //selectedPiece.transform.position += new Vector3(0, 0.2f, 0);
                 selectedPiece.gridPosition.y++;
             }
-        } 
-        else if (holdingPiece && !Input.GetMouseButton(0)) 
+        }
+        else if (holdingPiece && !Input.GetMouseButton(0))
         {
             LetGoOfPiece();
-        } else if (Input.GetKeyDown(KeyCode.Delete) && pieceSelected)
+        }
+        else if (Input.GetKeyDown(KeyCode.Delete) && pieceSelected)
         {
             pieceSelected = false;
             foreach (Transform child in selectedPiece.transform)
@@ -73,6 +74,38 @@ public class EditorController : MonoBehaviour
             }
             GameObject.Destroy(selectedPiece.gameObject);
             selectedPiece = null;
+        }
+        else if (Input.GetKeyDown(KeyCode.E) && pieceSelected)
+        {
+            foreach (Transform child in selectedPiece.transform)
+            {
+                child.gameObject.layer = 0;
+                grid.gridHexXZLayers[activelayer].GetXZ(child.transform.position, out int childX, out int childZ);
+                hexContents.Remove(new Vector3Int(childX, selectedPiece.gridPosition.y, childZ));
+            }
+            selectedPiece.transform.Rotate(0, 60, 0);
+            foreach (Transform child in selectedPiece.transform)
+            {
+                child.gameObject.layer = 3;
+                grid.gridHexXZLayers[activelayer].GetXZ(child.transform.position, out int childX, out int childZ);
+                hexContents.Add(new Vector3Int(childX, selectedPiece.gridPosition.y, childZ), new ItemInGrid(selectedPiece));
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.R) && pieceSelected)
+        {
+            foreach (Transform child in selectedPiece.transform)
+            {
+                child.gameObject.layer = 0;
+                grid.gridHexXZLayers[activelayer].GetXZ(child.transform.position, out int childX, out int childZ);
+                hexContents.Remove(new Vector3Int(childX, selectedPiece.gridPosition.y, childZ));
+            }
+            selectedPiece.transform.Rotate(0, -60, 0);
+            foreach (Transform child in selectedPiece.transform)
+            {
+                child.gameObject.layer = 3;
+                grid.gridHexXZLayers[activelayer].GetXZ(child.transform.position, out int childX, out int childZ);
+                hexContents.Add(new Vector3Int(childX, selectedPiece.gridPosition.y, childZ), new ItemInGrid(selectedPiece));
+            }
         }
     }
 
