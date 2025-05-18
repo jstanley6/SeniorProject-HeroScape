@@ -9990,6 +9990,7 @@ GameObject:
   - component: {fileID: 2093434155}
   - component: {fileID: 2093434154}
   - component: {fileID: 2093434157}
+  - component: {fileID: 2093434158}
   m_Layer: 0
   m_Name: IsometricCamera
   m_TagString: Untagged
@@ -10081,6 +10082,22 @@ MonoBehaviour:
   maxZoom: 25
   minZoom: 5
   panSpeed: 0.1
+--- !u!114 &2093434158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093434153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 8
+  m_MaxRayIntersections: 0
 --- !u!1 &2125590679
 GameObject:
   m_ObjectHideFlags: 0
