@@ -32,6 +32,7 @@ public class Piece : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoi
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        print("Clicked");
         if (eventData.pointerId == -1)
         {
             editor.ClickedOnPiece(this);
