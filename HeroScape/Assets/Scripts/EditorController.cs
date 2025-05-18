@@ -17,6 +17,7 @@ public class EditorController : MonoBehaviour
     Dictionary<Vector3Int, Piece> terrainPieces = new Dictionary<Vector3Int, Piece>();
     Dictionary<Vector3Int, ItemInGrid> hexContents = new Dictionary<Vector3Int, ItemInGrid>();
 
+    public bool pieceSelected = false;
     public bool holdingPiece = false;
 
     public class ItemInGrid
@@ -42,7 +43,7 @@ public class EditorController : MonoBehaviour
         {
             targetHex = grid.lastGridObject.visualTransform;
         }
-        if (holdingPiece)
+        if (holdingPiece && Input.GetMouseButton(0))
         {
             selectedPiece.transform.position = targetHex.position;
             grid.gridHexXZLayers[activelayer].GetXZ(selectedPiece.transform.position, out int posX, out int posZ);
@@ -57,16 +58,30 @@ public class EditorController : MonoBehaviour
                 //selectedPiece.transform.position += new Vector3(0, 0.2f, 0);
                 selectedPiece.gridPosition.y++;
             }
+        } 
+        else if (holdingPiece && !Input.GetMouseButton(0)) 
+        {
+            LetGoOfPiece();
+        } else if (Input.GetKeyDown(KeyCode.Delete) && pieceSelected)
+        {
+            pieceSelected = false;
+            foreach (Transform child in selectedPiece.transform)
+            {
+                child.gameObject.layer = 0;
+                grid.gridHexXZLayers[activelayer].GetXZ(child.transform.position, out int childX, out int childZ);
+                hexContents.Remove(new Vector3Int(childX, selectedPiece.gridPosition.y, childZ));
+            }
+            GameObject.Destroy(selectedPiece.gameObject);
+            selectedPiece = null;
         }
     }
 
     public void ClickedOnPiece(Piece piece)
     {
-        if (!holdingPiece)
+        if (!holdingPiece && selectedPiece == piece)
         {
             holdingPiece = true;
-            selectedPiece = piece;
-            ChangeBaseMaterial(FindChildrenWithTag(selectedPiece.gameObject, "TileBase"), selectedPiece.selectedMat);
+            //selectedPiece = piece;
             foreach(Transform child in piece.transform)
             {
                 child.gameObject.layer = 0;
@@ -75,7 +90,17 @@ public class EditorController : MonoBehaviour
             }
             terrainPieces.Remove(new Vector3Int(selectedPiece.gridPosition.x, selectedPiece.gridPosition.y, selectedPiece.gridPosition.z));
         }
-        else if (selectedPiece == piece)
+        else if ((!pieceSelected) || piece != selectedPiece)
+        {
+            if (selectedPiece != null) 
+            {
+                ChangeBaseMaterial(FindChildrenWithTag(selectedPiece.gameObject, "TileBase"), selectedPiece.defaultMat);
+            }
+            selectedPiece = piece;
+            ChangeBaseMaterial(FindChildrenWithTag(selectedPiece.gameObject, "TileBase"), selectedPiece.selectedMat);
+            pieceSelected = true;
+        }
+        /*else if (holdingPiece && selectedPiece == piece)
         {
             holdingPiece = false;
             foreach (Transform child in piece.transform)
@@ -91,8 +116,35 @@ public class EditorController : MonoBehaviour
             selectedPiece.gridPosition = new Vector3Int(xPos, activelayer, yPos);
             terrainPieces.Add(new Vector3Int(selectedPiece.gridPosition.x, selectedPiece.gridPosition.y, selectedPiece.gridPosition.z), selectedPiece);
             selectedPiece = null;
-        }
+        }*/
     }
+
+    public void LetGoOfPiece()
+    {
+        
+        holdingPiece = false;
+        foreach (Transform child in selectedPiece.transform)
+        {
+            child.gameObject.layer = 3;
+            grid.gridHexXZLayers[activelayer].GetXZ(child.transform.position, out int childX, out int childZ);
+            hexContents.Add(new Vector3Int(childX, selectedPiece.gridPosition.y, childZ), new ItemInGrid(selectedPiece));
+        }
+        //ChangeBaseMaterial(FindChildrenWithTag(selectedPiece.gameObject, "TileBase"), selectedPiece.highlightMat);
+        int xPos = 0;
+        int yPos = 0;
+        grid.gridHexXZLayers[activelayer].GetXZ(selectedPiece.gameObject.transform.position, out xPos, out yPos);
+        selectedPiece.gridPosition = new Vector3Int(xPos, activelayer, yPos);
+        terrainPieces.Add(new Vector3Int(selectedPiece.gridPosition.x, selectedPiece.gridPosition.y, selectedPiece.gridPosition.z), selectedPiece);
+        //selectedPiece = null;
+    }
+
+    public void ClickedOffPiece()
+    {
+        pieceSelected = false;
+        ChangeBaseMaterial(FindChildrenWithTag(selectedPiece.gameObject, "TileBase"), selectedPiece.defaultMat);
+        selectedPiece = null;
+    }
+
     List<GameObject> FindChildrenWithTag(GameObject parent, string tag)
     {
         List<GameObject> children = new List<GameObject>();

@@ -32,8 +32,7 @@ public class Piece : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoi
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        print("Clicked");
-        if (eventData.pointerId == -1)
+        if (eventData.pointerId == -1 && !editor.holdingPiece)
         {
             editor.ClickedOnPiece(this);
         }
@@ -41,12 +40,15 @@ public class Piece : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoi
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        
+        if (eventData.pointerId == -1 && editor.selectedPiece == this && !editor.holdingPiece)
+        {
+            editor.ClickedOnPiece(this);
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!editor.holdingPiece)
+        if (!editor.holdingPiece && editor.selectedPiece != this)
         {
             foreach (Transform child in transform)
             {
@@ -61,7 +63,7 @@ public class Piece : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoi
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (!editor.holdingPiece)
+        if (editor.selectedPiece != this)
         {
             foreach (Transform child in transform)
             {
