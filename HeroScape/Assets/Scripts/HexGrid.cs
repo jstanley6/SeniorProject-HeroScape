@@ -46,17 +46,18 @@ public class HexGrid : MonoBehaviour {
     {
         gridHexXZLayers.Add(
             new GridHexXZ<GridObject>(sizeX, sizeZ, cellSize, new Vector3(sizeX / -2, gridHexXZLayers.Count() / 5, sizeZ / -2), (GridHexXZ<GridObject> g, int x, int y) => new GridObject()));
-        //print(gridHexXZLayers.Count());
+        print(gridHexXZLayers.Count());
+        print(gridHexXZLayers.Count() / 5f - 0.2f);
         for (int x = 0; x < sizeX; x++)
         {
             for (int z = 0; z < sizeZ; z++)
             {
-                Transform visualTransform = Instantiate(pfHex, gridHexXZLayers.Last<GridHexXZ<GridObject>>().GetWorldPosition(x, z) + new Vector3(0, gridHexXZLayers.Count() / 5f - 0.2f, 0), Quaternion.identity);
-                gridHexXZLayers.Last<GridHexXZ<GridObject>>().GetGridObject(x, z).visualTransform = visualTransform;
-                gridHexXZLayers.Last<GridHexXZ<GridObject>>().GetGridObject(x, z).Hide();
+                Transform visualTransform = Instantiate(pfHex, new Vector3(gridHexXZLayers.Last().GetWorldPosition(x, z).x, gridHexXZLayers.Count() / 5f - 0.2f, gridHexXZLayers.Last().GetWorldPosition(x, z).z), Quaternion.identity);
+                gridHexXZLayers.Last().GetGridObject(x, z).visualTransform = visualTransform;
+                gridHexXZLayers.Last().GetGridObject(x, z).Hide();
                 if(gridHexXZLayers.Count() == 1)
                 {
-                    gridHexXZLayers.Last<GridHexXZ<GridObject>>().GetGridObject(x, z).Visible();
+                    gridHexXZLayers.Last().GetGridObject(x, z).Visible();
                 }
             }
         }

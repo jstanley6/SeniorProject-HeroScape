@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using static Piece;
 
 public class ImageScrollList : MonoBehaviour
 {
@@ -11,6 +13,10 @@ public class ImageScrollList : MonoBehaviour
 
     private List<GameObject> imageObjects = new List<GameObject>();
     private List<Sprite> allImages = new List<Sprite>();
+
+    [SerializeField]
+    private Sprite defaultSprite;
+
 
     void Start()
     {
@@ -24,16 +30,42 @@ public class ImageScrollList : MonoBehaviour
         Sprite[] sprites = Resources.LoadAll<Sprite>("HeroscapePieces");
         allImages = sprites.ToList();
 
-        foreach (Sprite sprite in allImages)
+        /*foreach (Sprite sprite in allImages)
         {
+            print(sprite.name);
             AddImageItem(sprite);
+        }*/
+        foreach (TerrainType terrainType in Enum.GetValues(typeof(TerrainType)))
+        {
+            foreach (PieceSize pieceSize in Enum.GetValues(typeof(PieceSize)))
+            {
+                if (terrainType != TerrainType.Water || pieceSize == PieceSize.s1) // only do water of size 1
+                {
+                    bool found = false;
+                    foreach (Sprite sprite in allImages)
+                    {
+                        if (sprite.name.Contains(terrainType.ToString()) && sprite.name.Contains(pieceSize.ToString()))
+                        {
+                            AddImageItem(sprite, terrainType, pieceSize);
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found)
+                    {
+                        AddImageItem(defaultSprite, terrainType, pieceSize);
+                    }
+                }
+            }
         }
     }
 
-    void AddImageItem(Sprite sprite)
+    void AddImageItem(Sprite sprite, TerrainType terrainType, PieceSize pieceSize)
     {
         GameObject newItem = Instantiate(imagePrefab, contentPanel);
         newItem.GetComponent<Image>().sprite = sprite;
+        newItem.GetComponent<PieceImage>().TerrainType = terrainType;
+        newItem.GetComponent<PieceImage>().PieceSize = pieceSize;
         imageObjects.Add(newItem);
     }
 

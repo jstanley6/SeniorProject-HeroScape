@@ -13,7 +13,6 @@ public class EditorController : MonoBehaviour
     public Piece selectedPiece;
     public int activelayer = 0;
     public Mouse3D mouse;
-    //public List<ItemInGrid[][]> terrain;
     Dictionary<Vector3Int, Piece> terrainPieces = new Dictionary<Vector3Int, Piece>();
     Dictionary<Vector3Int, ItemInGrid> hexContents = new Dictionary<Vector3Int, ItemInGrid>();
 
@@ -66,45 +65,45 @@ public class EditorController : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Delete) && pieceSelected)
         {
             pieceSelected = false;
-            foreach (Transform child in selectedPiece.transform)
-            {
-                child.gameObject.layer = 0;
-                grid.gridHexXZLayers[activelayer].GetXZ(child.transform.position, out int childX, out int childZ);
-                hexContents.Remove(new Vector3Int(childX, selectedPiece.gridPosition.y, childZ));
-            }
-            GameObject.Destroy(selectedPiece.gameObject);
+            LiftPiece(selectedPiece);
+            Destroy(selectedPiece.gameObject);
             selectedPiece = null;
         }
         else if (Input.GetKeyDown(KeyCode.E) && pieceSelected)
         {
-            foreach (Transform child in selectedPiece.transform)
-            {
-                child.gameObject.layer = 0;
-                grid.gridHexXZLayers[activelayer].GetXZ(child.transform.position, out int childX, out int childZ);
-                hexContents.Remove(new Vector3Int(childX, selectedPiece.gridPosition.y, childZ));
-            }
+            LiftPiece(selectedPiece);
             selectedPiece.transform.Rotate(0, 60, 0);
-            foreach (Transform child in selectedPiece.transform)
+            if (!CheckForOverlap(selectedPiece))
             {
-                child.gameObject.layer = 3;
-                grid.gridHexXZLayers[activelayer].GetXZ(child.transform.position, out int childX, out int childZ);
-                hexContents.Add(new Vector3Int(childX, selectedPiece.gridPosition.y, childZ), new ItemInGrid(selectedPiece));
+                bool successfulAdd = PlacePiece(selectedPiece);
+                if (!successfulAdd)
+                {
+                    selectedPiece.transform.Rotate(0, -60, 0);
+                    PlacePiece(selectedPiece);
+                }
+            } else 
+            {
+                selectedPiece.transform.Rotate(0, -60, 0);
+                PlacePiece(selectedPiece);
             }
         }
         else if (Input.GetKeyDown(KeyCode.R) && pieceSelected)
         {
-            foreach (Transform child in selectedPiece.transform)
-            {
-                child.gameObject.layer = 0;
-                grid.gridHexXZLayers[activelayer].GetXZ(child.transform.position, out int childX, out int childZ);
-                hexContents.Remove(new Vector3Int(childX, selectedPiece.gridPosition.y, childZ));
-            }
+            LiftPiece(selectedPiece);
             selectedPiece.transform.Rotate(0, -60, 0);
-            foreach (Transform child in selectedPiece.transform)
+            if (!CheckForOverlap(selectedPiece))
             {
-                child.gameObject.layer = 3;
-                grid.gridHexXZLayers[activelayer].GetXZ(child.transform.position, out int childX, out int childZ);
-                hexContents.Add(new Vector3Int(childX, selectedPiece.gridPosition.y, childZ), new ItemInGrid(selectedPiece));
+                bool successfulAdd = PlacePiece(selectedPiece);
+                if (!successfulAdd)
+                {
+                    selectedPiece.transform.Rotate(0, 60, 0);
+                    PlacePiece(selectedPiece);
+                }
+            }
+            else
+            {
+                selectedPiece.transform.Rotate(0, 60, 0);
+                PlacePiece(selectedPiece);
             }
         }
     }
@@ -115,12 +114,7 @@ public class EditorController : MonoBehaviour
         {
             holdingPiece = true;
             //selectedPiece = piece;
-            foreach(Transform child in piece.transform)
-            {
-                child.gameObject.layer = 0;
-                grid.gridHexXZLayers[activelayer].GetXZ(child.transform.position, out int childX, out int childZ);
-                hexContents.Remove(new Vector3Int(childX, selectedPiece.gridPosition.y, childZ));
-            }
+            LiftPiece(selectedPiece);
             terrainPieces.Remove(new Vector3Int(selectedPiece.gridPosition.x, selectedPiece.gridPosition.y, selectedPiece.gridPosition.z));
         }
         else if ((!pieceSelected) || piece != selectedPiece)
@@ -133,42 +127,23 @@ public class EditorController : MonoBehaviour
             ChangeBaseMaterial(FindChildrenWithTag(selectedPiece.gameObject, "TileBase"), selectedPiece.selectedMat);
             pieceSelected = true;
         }
-        /*else if (holdingPiece && selectedPiece == piece)
-        {
-            holdingPiece = false;
-            foreach (Transform child in piece.transform)
-            {
-                child.gameObject.layer = 3;
-                grid.gridHexXZLayers[activelayer].GetXZ(child.transform.position, out int childX, out int childZ);
-                hexContents.Add(new Vector3Int(childX, selectedPiece.gridPosition.y, childZ), new ItemInGrid(selectedPiece));
-            }
-            ChangeBaseMaterial(FindChildrenWithTag(selectedPiece.gameObject, "TileBase"), selectedPiece.highlightMat);
-            int xPos = 0;
-            int yPos = 0;
-            grid.gridHexXZLayers[activelayer].GetXZ(selectedPiece.gameObject.transform.position, out xPos, out yPos);
-            selectedPiece.gridPosition = new Vector3Int(xPos, activelayer, yPos);
-            terrainPieces.Add(new Vector3Int(selectedPiece.gridPosition.x, selectedPiece.gridPosition.y, selectedPiece.gridPosition.z), selectedPiece);
-            selectedPiece = null;
-        }*/
     }
 
     public void LetGoOfPiece()
     {
-        
-        holdingPiece = false;
-        foreach (Transform child in selectedPiece.transform)
+        if (!CheckForOverlap(selectedPiece))
         {
-            child.gameObject.layer = 3;
-            grid.gridHexXZLayers[activelayer].GetXZ(child.transform.position, out int childX, out int childZ);
-            hexContents.Add(new Vector3Int(childX, selectedPiece.gridPosition.y, childZ), new ItemInGrid(selectedPiece));
+            holdingPiece = false;
+            PlacePiece(selectedPiece);
+            //ChangeBaseMaterial(FindChildrenWithTag(selectedPiece.gameObject, "TileBase"), selectedPiece.highlightMat);
+            int xPos = 0;
+            int yPos = 0;
+            grid.gridHexXZLayers[activelayer].GetXZ(selectedPiece.gameObject.transform.position, out xPos, out yPos);
+            selectedPiece.gridPosition = new Vector3Int(xPos, activelayer, yPos);
+            //print(new Vector3Int(selectedPiece.gridPosition.x, selectedPiece.gridPosition.y, selectedPiece.gridPosition.z) + selectedPiece.name);
+            terrainPieces.Add(new Vector3Int(selectedPiece.gridPosition.x, selectedPiece.gridPosition.y, selectedPiece.gridPosition.z), selectedPiece);
+            //selectedPiece = null;
         }
-        //ChangeBaseMaterial(FindChildrenWithTag(selectedPiece.gameObject, "TileBase"), selectedPiece.highlightMat);
-        int xPos = 0;
-        int yPos = 0;
-        grid.gridHexXZLayers[activelayer].GetXZ(selectedPiece.gameObject.transform.position, out xPos, out yPos);
-        selectedPiece.gridPosition = new Vector3Int(xPos, activelayer, yPos);
-        terrainPieces.Add(new Vector3Int(selectedPiece.gridPosition.x, selectedPiece.gridPosition.y, selectedPiece.gridPosition.z), selectedPiece);
-        //selectedPiece = null;
     }
 
     public void ClickedOffPiece()
@@ -188,6 +163,13 @@ public class EditorController : MonoBehaviour
             {
                 children.Add(child.gameObject);
             }
+            /*foreach (Transform childer in child.transform)
+            {
+                if (childer.CompareTag(tag))
+                {
+                    children.Add(childer.gameObject);
+                }
+            }*/
         }
         return children;
     }
@@ -212,5 +194,53 @@ public class EditorController : MonoBehaviour
             }
         }
         return false;
+    }
+
+    bool PlacePiece(Piece piece)
+    {
+        List<Vector3Int> addedHexes = new List<Vector3Int>();
+        bool success = true;
+        foreach (Transform child in selectedPiece.transform)
+        {
+            grid.gridHexXZLayers[activelayer].GetXZ(child.transform.position, out int childX, out int childZ);
+            Vector3Int hexPos = new Vector3Int(childX, selectedPiece.gridPosition.y, childZ);
+            try
+            {
+                hexContents.Add(hexPos, new ItemInGrid(selectedPiece));
+                addedHexes.Add(hexPos);
+                child.gameObject.layer = 3;
+            } catch
+            {
+                print("fail");
+                success = false;
+                //addedHexes.Remove(hexPos);
+                child.gameObject.layer = 0;
+                break;
+            }
+            print(hexPos + piece.name);
+        }
+        if (!success)
+        {
+            foreach (Vector3Int hex in addedHexes)
+            {
+                hexContents.Remove(hex);
+            }
+            foreach (Transform child in selectedPiece.transform)
+            {
+                child.gameObject.layer = 0;
+            }
+        }
+        return success;
+    }
+
+    bool LiftPiece(Piece piece)
+    {
+        foreach (Transform child in selectedPiece.transform)
+        {
+            child.gameObject.layer = 0;
+            grid.gridHexXZLayers[activelayer].GetXZ(child.transform.position, out int childX, out int childZ);
+            hexContents.Remove(new Vector3Int(childX, selectedPiece.gridPosition.y, childZ));
+        }
+        return true;
     }
 }
