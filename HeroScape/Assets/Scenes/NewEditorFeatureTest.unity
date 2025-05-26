@@ -312,6 +312,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   feedback: {fileID: 173331787}
+  manualToggle: {fileID: 0}
+  manualMode: 0
+  ownedKitNames: []
+  neededKits:
+  - Basic
+  - Lands of Valhalla Expansion
+  pieceNames: {fileID: 0}
+  kitNameInputs: {fileID: 0}
+  quantityInputPieces: {fileID: 0}
+  quantityInputKits: {fileID: 0}
+  addPieceButton: {fileID: 0}
+  addKitButton: {fileID: 0}
+  inventoryDisplay: {fileID: 0}
 --- !u!4 &103929352
 Transform:
   m_ObjectHideFlags: 0
@@ -1441,7 +1454,6 @@ GameObject:
   - component: {fileID: 276178353}
   - component: {fileID: 276178355}
   - component: {fileID: 276178354}
-  - component: {fileID: 276178356}
   m_Layer: 5
   m_Name: ScrollListImages
   m_TagString: Untagged
@@ -1508,22 +1520,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 276178352}
   m_CullTransparentMesh: 1
---- !u!114 &276178356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 276178352}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e51691b8fe96ce46a7045677bdd3a5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mouseInUI: 0
-  dragging: 0
-  heldPieceImage: {fileID: 0}
-  prefabs: []
 --- !u!4 &282639096 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4507874177161650720, guid: 3ee3dbd05ca97654ead2d07136a01b84, type: 3}
