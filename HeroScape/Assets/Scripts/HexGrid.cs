@@ -46,8 +46,8 @@ public class HexGrid : MonoBehaviour {
     {
         gridHexXZLayers.Add(
             new GridHexXZ<GridObject>(sizeX, sizeZ, cellSize, new Vector3(sizeX / -2, gridHexXZLayers.Count() / 5, sizeZ / -2), (GridHexXZ<GridObject> g, int x, int y) => new GridObject()));
-        print(gridHexXZLayers.Count());
-        print(gridHexXZLayers.Count() / 5f - 0.2f);
+        /*print(gridHexXZLayers.Count());
+        print(gridHexXZLayers.Count() / 5f - 0.2f);*/
         for (int x = 0; x < sizeX; x++)
         {
             for (int z = 0; z < sizeZ; z++)
@@ -64,7 +64,7 @@ public class HexGrid : MonoBehaviour {
     }
 
     private void Update() {
-        if (lastGridObject != null || editor.activelayer != 0) {
+        if (lastGridObject != null || (lastGridObject != null && editor.activelayer != 0)) {
             lastGridObject.Hide();
         }
         while (editor.activelayer >= gridHexXZLayers.Count())

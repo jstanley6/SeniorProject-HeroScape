@@ -64,30 +64,9 @@ public class EditorController : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Delete) && pieceSelected)
         {
-            pieceSelected = false;
-            LiftPiece(selectedPiece);
-            Destroy(selectedPiece.gameObject);
-            selectedPiece = null;
+            DeletePiece();
         }
         else if (Input.GetKeyDown(KeyCode.E) && pieceSelected)
-        {
-            LiftPiece(selectedPiece);
-            selectedPiece.transform.Rotate(0, 60, 0);
-            if (!CheckForOverlap(selectedPiece))
-            {
-                bool successfulAdd = PlacePiece(selectedPiece);
-                if (!successfulAdd)
-                {
-                    selectedPiece.transform.Rotate(0, -60, 0);
-                    PlacePiece(selectedPiece);
-                }
-            } else 
-            {
-                selectedPiece.transform.Rotate(0, -60, 0);
-                PlacePiece(selectedPiece);
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.R) && pieceSelected)
         {
             LiftPiece(selectedPiece);
             selectedPiece.transform.Rotate(0, -60, 0);
@@ -99,10 +78,28 @@ public class EditorController : MonoBehaviour
                     selectedPiece.transform.Rotate(0, 60, 0);
                     PlacePiece(selectedPiece);
                 }
+            } else 
+            {
+                selectedPiece.transform.Rotate(0, 60, 0);
+                PlacePiece(selectedPiece);
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.R) && pieceSelected)
+        {
+            LiftPiece(selectedPiece);
+            selectedPiece.transform.Rotate(0, 60, 0);
+            if (!CheckForOverlap(selectedPiece))
+            {
+                bool successfulAdd = PlacePiece(selectedPiece);
+                if (!successfulAdd)
+                {
+                    selectedPiece.transform.Rotate(0, -60, 0);
+                    PlacePiece(selectedPiece);
+                }
             }
             else
             {
-                selectedPiece.transform.Rotate(0, 60, 0);
+                selectedPiece.transform.Rotate(0, -60, 0);
                 PlacePiece(selectedPiece);
             }
         }
@@ -217,7 +214,7 @@ public class EditorController : MonoBehaviour
                 child.gameObject.layer = 0;
                 break;
             }
-            print(hexPos + piece.name);
+            //print(hexPos + piece.name);
         }
         if (!success)
         {
@@ -241,6 +238,15 @@ public class EditorController : MonoBehaviour
             grid.gridHexXZLayers[activelayer].GetXZ(child.transform.position, out int childX, out int childZ);
             hexContents.Remove(new Vector3Int(childX, selectedPiece.gridPosition.y, childZ));
         }
+        return true;
+    }
+
+    public bool DeletePiece()
+    {
+        pieceSelected = false;
+        LiftPiece(selectedPiece);
+        Destroy(selectedPiece.gameObject);
+        selectedPiece = null;
         return true;
     }
 }

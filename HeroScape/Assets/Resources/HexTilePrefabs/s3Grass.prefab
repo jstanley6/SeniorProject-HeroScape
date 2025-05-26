@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 542583890502648690}
   - component: {fileID: 108158407683891681}
   - component: {fileID: 2988732029154683634}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Base2
-  m_TagString: Untagged
+  m_TagString: TileBase
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,9 +106,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5368088805157987277}
-  - component: {fileID: -6638161698791146202}
+  - component: {fileID: -2994189890590220624}
   m_Layer: 0
-  m_Name: StoneTile3
+  m_Name: s3Grass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,7 +131,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-6638161698791146202
+--- !u!114 &-2994189890590220624
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,6 +143,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52dff17279746b41b5774ae5b32602a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  terrainType: 0
+  size: 2
+  defaultMat: {fileID: 2100000, guid: be9cda8523d78434e98957f4e46b23ea, type: 2}
+  highlightMat: {fileID: 2100000, guid: 5a51470e45ab32f49a8fc1335d5c7144, type: 2}
+  selectedMat: {fileID: 2100000, guid: ae1ba55bcb3adcd42bef8c7abd3d1e2a, type: 2}
+  gridPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1428704801849132892
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,7 +209,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ac9a21c68bf0b444785a7b695ac9947d, type: 2}
+  - {fileID: 2100000, guid: f6537b0ac7128294d8c45750f0df1543, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -251,9 +257,9 @@ GameObject:
   - component: {fileID: 741619754538920682}
   - component: {fileID: 4693332874113305873}
   - component: {fileID: 3035606244387417951}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Base3
-  m_TagString: Untagged
+  m_TagString: TileBase
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -396,7 +402,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ac9a21c68bf0b444785a7b695ac9947d, type: 2}
+  - {fileID: 2100000, guid: f6537b0ac7128294d8c45750f0df1543, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -492,7 +498,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ac9a21c68bf0b444785a7b695ac9947d, type: 2}
+  - {fileID: 2100000, guid: f6537b0ac7128294d8c45750f0df1543, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -540,9 +546,9 @@ GameObject:
   - component: {fileID: 6176758942212029806}
   - component: {fileID: 6166063264480606550}
   - component: {fileID: 6135420200913241108}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Base1
-  m_TagString: Untagged
+  m_TagString: TileBase
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

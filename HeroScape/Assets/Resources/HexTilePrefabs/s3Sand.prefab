@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 542583890502648690}
   - component: {fileID: 108158407683891681}
   - component: {fileID: 2988732029154683634}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Base2
-  m_TagString: Untagged
+  m_TagString: TileBase
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 5368088805157987277}
   - component: {fileID: -5825956371755788788}
   m_Layer: 0
-  m_Name: SandTile3
+  m_Name: s3Sand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -143,6 +143,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52dff17279746b41b5774ae5b32602a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  terrainType: 1
+  size: 2
+  defaultMat: {fileID: 2100000, guid: be9cda8523d78434e98957f4e46b23ea, type: 2}
+  highlightMat: {fileID: 2100000, guid: 5a51470e45ab32f49a8fc1335d5c7144, type: 2}
+  selectedMat: {fileID: 2100000, guid: ae1ba55bcb3adcd42bef8c7abd3d1e2a, type: 2}
+  gridPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1428704801849132892
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,9 +257,9 @@ GameObject:
   - component: {fileID: 741619754538920682}
   - component: {fileID: 4693332874113305873}
   - component: {fileID: 3035606244387417951}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Base3
-  m_TagString: Untagged
+  m_TagString: TileBase
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -540,9 +546,9 @@ GameObject:
   - component: {fileID: 6176758942212029806}
   - component: {fileID: 6166063264480606550}
   - component: {fileID: 6135420200913241108}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Base1
-  m_TagString: Untagged
+  m_TagString: TileBase
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

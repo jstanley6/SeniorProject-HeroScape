@@ -44,8 +44,10 @@ public class ImageScrollList : MonoBehaviour
                     bool found = false;
                     foreach (Sprite sprite in allImages)
                     {
-                        if (sprite.name.Contains(terrainType.ToString()) && sprite.name.Contains(pieceSize.ToString()))
+                        if (sprite.name.Equals(pieceSize.ToString() + terrainType.ToString()))
                         {
+                            /*print(sprite.name.Substring(0, pieceSize.ToString().Length));
+                            print(sprite.name);*/
                             AddImageItem(sprite, terrainType, pieceSize);
                             found = true;
                             break;
@@ -64,8 +66,8 @@ public class ImageScrollList : MonoBehaviour
     {
         GameObject newItem = Instantiate(imagePrefab, contentPanel);
         newItem.GetComponent<Image>().sprite = sprite;
-        newItem.GetComponent<PieceImage>().TerrainType = terrainType;
-        newItem.GetComponent<PieceImage>().PieceSize = pieceSize;
+        newItem.GetComponent<PieceImage>().terrainType = terrainType;
+        newItem.GetComponent<PieceImage>().pieceSize = pieceSize;
         imageObjects.Add(newItem);
     }
 

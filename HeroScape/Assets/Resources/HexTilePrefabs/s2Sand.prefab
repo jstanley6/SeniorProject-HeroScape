@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5127479186053168124}
-  - component: {fileID: -48220657843066125}
+  - component: {fileID: 253168900485928937}
   m_Layer: 0
-  m_Name: StoneTile2
+  m_Name: s2Sand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-48220657843066125
+--- !u!114 &253168900485928937
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,6 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52dff17279746b41b5774ae5b32602a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  terrainType: 1
+  size: 1
+  defaultMat: {fileID: 2100000, guid: be9cda8523d78434e98957f4e46b23ea, type: 2}
+  highlightMat: {fileID: 2100000, guid: 5a51470e45ab32f49a8fc1335d5c7144, type: 2}
+  selectedMat: {fileID: 2100000, guid: ae1ba55bcb3adcd42bef8c7abd3d1e2a, type: 2}
+  gridPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1090024973847181553
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,9 +63,9 @@ GameObject:
   - component: {fileID: 779292442336402243}
   - component: {fileID: 925346834872891856}
   - component: {fileID: 2606779919564403395}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Base2
-  m_TagString: Untagged
+  m_TagString: TileBase
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -202,7 +208,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ac9a21c68bf0b444785a7b695ac9947d, type: 2}
+  - {fileID: 2100000, guid: 532c031977755574ab5c0c1662acb46b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -298,7 +304,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ac9a21c68bf0b444785a7b695ac9947d, type: 2}
+  - {fileID: 2100000, guid: 532c031977755574ab5c0c1662acb46b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -346,9 +352,9 @@ GameObject:
   - component: {fileID: 6408480418556470623}
   - component: {fileID: 6396658115066634599}
   - component: {fileID: 6373256886009568293}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Base1
-  m_TagString: Untagged
+  m_TagString: TileBase
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
