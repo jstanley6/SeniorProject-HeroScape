@@ -81,7 +81,7 @@ public class CameraControl : MonoBehaviour
 
     void panChangeLocation()
     {
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetMouseButton(0))
+        if (Input.GetMouseButton(2))
         {
             float verticalInput = Input.GetAxis("Mouse Y");
             float horizontalInput = Input.GetAxis("Mouse X");
