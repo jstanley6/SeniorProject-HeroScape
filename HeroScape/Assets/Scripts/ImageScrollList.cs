@@ -75,10 +75,18 @@ public class ImageScrollList : MonoBehaviour
     {
         query = query.ToLower();
 
-        for (int i = 0; i < allImages.Count; i++)
+        /*for (int i = 0; i < allImages.Count; i++)
         {
             bool matchesSearch = allImages[i].name.ToLower().Contains(query);
             imageObjects[i].SetActive(matchesSearch);
+        }*/
+        foreach (GameObject image in imageObjects)
+        {
+            PieceImage pieceImage = image.GetComponent<PieceImage>();
+            bool match = pieceImage.terrainType.ToString().ToLower().Contains(query) || pieceImage.pieceSize.ToString().ToLower().Substring(1).Contains(query) ||
+                (pieceImage.terrainType.ToString().ToLower() + pieceImage.pieceSize.ToString().ToLower().Substring(1)).Contains(query) ||
+                (pieceImage.pieceSize.ToString().ToLower() + pieceImage.terrainType.ToString().ToLower().Substring(1)).Contains(query);
+            image.SetActive(match);
         }
     }
 }
