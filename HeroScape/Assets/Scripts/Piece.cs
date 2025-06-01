@@ -40,10 +40,10 @@ public class Piece : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoi
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (eventData.pointerId == -1 && editor.selectedPiece == this && !editor.holdingPiece)
+        /*if (eventData.pointerId == -1 && editor.selectedPiece == this && !editor.holdingPiece)
         {
             editor.ClickedOnPiece(this);
-        }
+        }*/
     }
 
     public void OnPointerEnter(PointerEventData eventData)

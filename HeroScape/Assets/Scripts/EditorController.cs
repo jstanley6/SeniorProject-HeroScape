@@ -13,6 +13,7 @@ public class EditorController : MonoBehaviour
     public Piece selectedPiece;
     public int activelayer = 0;
     public Mouse3D mouse;
+    public GameObject transformWidget;
     Dictionary<Vector3Int, Piece> terrainPieces = new Dictionary<Vector3Int, Piece>();
     Dictionary<Vector3Int, ItemInGrid> hexContents = new Dictionary<Vector3Int, ItemInGrid>();
 
@@ -37,6 +38,10 @@ public class EditorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (pieceSelected)
+        {
+            transformWidget.transform.position = selectedPiece.gameObject.transform.position;
+        }
         activelayer = (int) Math.Round(mouse.transform.position.y * 5);
         if (grid.lastGridObject != null)
         {
@@ -68,7 +73,8 @@ public class EditorController : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.E) && pieceSelected)
         {
-            LiftPiece(selectedPiece);
+            rotatePiece(false);
+            /*LiftPiece(selectedPiece);
             selectedPiece.transform.Rotate(0, -60, 0);
             if (!CheckForOverlap(selectedPiece))
             {
@@ -82,11 +88,12 @@ public class EditorController : MonoBehaviour
             {
                 selectedPiece.transform.Rotate(0, 60, 0);
                 PlacePiece(selectedPiece);
-            }
+            }*/
         }
         else if (Input.GetKeyDown(KeyCode.R) && pieceSelected)
         {
-            LiftPiece(selectedPiece);
+            rotatePiece(true);
+            /*LiftPiece(selectedPiece);
             selectedPiece.transform.Rotate(0, 60, 0);
             if (!CheckForOverlap(selectedPiece))
             {
@@ -101,7 +108,32 @@ public class EditorController : MonoBehaviour
             {
                 selectedPiece.transform.Rotate(0, -60, 0);
                 PlacePiece(selectedPiece);
+            }*/
+        }
+    }
+
+    public void rotatePiece(bool right)
+    {
+        int direction = -1;
+        if (right)
+        {
+            direction = 1;
+        }
+        LiftPiece(selectedPiece);
+        selectedPiece.transform.Rotate(0, direction * 60, 0);
+        if (!CheckForOverlap(selectedPiece))
+        {
+            bool successfulAdd = PlacePiece(selectedPiece);
+            if (!successfulAdd)
+            {
+                selectedPiece.transform.Rotate(0, direction * -60, 0);
+                PlacePiece(selectedPiece);
             }
+        }
+        else
+        {
+            selectedPiece.transform.Rotate(0, direction * -60, 0);
+            PlacePiece(selectedPiece);
         }
     }
 
@@ -123,6 +155,7 @@ public class EditorController : MonoBehaviour
             selectedPiece = piece;
             ChangeBaseMaterial(FindChildrenWithTag(selectedPiece.gameObject, "TileBase"), selectedPiece.selectedMat);
             pieceSelected = true;
+            transformWidget.gameObject.SetActive(true);
         }
     }
 
@@ -148,6 +181,7 @@ public class EditorController : MonoBehaviour
         pieceSelected = false;
         ChangeBaseMaterial(FindChildrenWithTag(selectedPiece.gameObject, "TileBase"), selectedPiece.defaultMat);
         selectedPiece = null;
+        transformWidget.gameObject.SetActive(false);
     }
 
     List<GameObject> FindChildrenWithTag(GameObject parent, string tag)
@@ -247,6 +281,7 @@ public class EditorController : MonoBehaviour
         LiftPiece(selectedPiece);
         Destroy(selectedPiece.gameObject);
         selectedPiece = null;
+        transformWidget.gameObject.SetActive(false);
         return true;
     }
 }
