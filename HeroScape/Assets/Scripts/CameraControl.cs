@@ -132,11 +132,9 @@ public class CameraControl : MonoBehaviour
             float horizontalInput = Input.GetAxis("Mouse X");
             float verticalInput = Input.GetAxis("Mouse Y");
 
-            // Calculate camera-relative pan direction
             Vector3 right = transform.right;
             Vector3 up = transform.up;
 
-            // Move both the camera and the grid target together
             Vector3 move = (-right * horizontalInput + -up * verticalInput) * panSpeed * Time.deltaTime;
             transform.position += move;
             gridObject.transform.position += move;
