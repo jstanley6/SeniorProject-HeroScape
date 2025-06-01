@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class CameraControl : MonoBehaviour
 {
@@ -21,6 +23,11 @@ public class CameraControl : MonoBehaviour
     public float panSpeed = 5f;
     private Vector3 lastPosition;
 
+    public GraphicRaycaster uiRaycaster;
+    public EventSystem eventSystem;
+
+    public RectTransform scrollViewport;
+
     private bool isIsometric = false;
 
     void Start()
@@ -39,6 +46,7 @@ public class CameraControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         Rotation();
         zooming();
         panChangeLocation();
@@ -64,6 +72,16 @@ public class CameraControl : MonoBehaviour
 
     void zooming()
     {
+        if (scrollViewport != null)
+        {
+            Vector2 mousePos = Input.mousePosition;
+            if (RectTransformUtility.RectangleContainsScreenPoint(scrollViewport, mousePos))
+            {
+                // Cancel zoom if the user is interacting with the scroll view
+                return;
+            }
+        }
+
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
         if(scrollInput != 0)
         {
@@ -81,33 +99,49 @@ public class CameraControl : MonoBehaviour
 
     void panChangeLocation()
     {
-        if (Input.GetMouseButton(2))
-        {
-            float verticalInput = Input.GetAxis("Mouse Y");
-            float horizontalInput = Input.GetAxis("Mouse X");
-            if (Input.GetAxis("Mouse X")<0)
-            {
-                Vector3 newPos = transform.position - Vector3.left * horizontalInput * Time.deltaTime * panSpeed;
-                transform.position = newPos;
-                print("mouse moved left");
-            } else if(Input.GetAxis("Mouse X")>0)
-            {
-                Vector3 newPos = transform.position + Vector3.right * horizontalInput * Time.deltaTime * panSpeed;
-                transform.position = newPos;
-                print("mouse moved right");
-            } else if(Input.GetAxis("Mouse Y") < 0)
-            {
-                Vector3 newPos = transform.position - Vector3.down * verticalInput * Time.deltaTime * panSpeed;
-                transform.position = newPos;
-                print("mouse moved down");
-            } else if(Input.GetAxis("Mouse Y") > 0)
-            {
-                //transform.Translate(0, panSpeed * Time.deltaTime, 0);
-                Vector3 newPos = transform.position + Vector3.up * verticalInput * Time.deltaTime * panSpeed;
-                transform.position = newPos;
-                print("mouse moved up");
-            }
+        //if (Input.GetMouseButton(2))
+        //{
+        //    float verticalInput = Input.GetAxis("Mouse Y");
+        //    float horizontalInput = Input.GetAxis("Mouse X");
+        //    if (Input.GetAxis("Mouse X")<0)
+        //    {
+        //        Vector3 newPos = transform.position - Vector3.left * horizontalInput * Time.deltaTime * panSpeed;
+        //        transform.position = newPos;
+        //        print("mouse moved left");
+        //    } else if(Input.GetAxis("Mouse X")>0)
+        //    {
+        //        Vector3 newPos = transform.position + Vector3.right * horizontalInput * Time.deltaTime * panSpeed;
+        //        transform.position = newPos;
+        //        print("mouse moved right");
+        //    } else if(Input.GetAxis("Mouse Y") < 0)
+        //    {
+        //        Vector3 newPos = transform.position - Vector3.down * verticalInput * Time.deltaTime * panSpeed;
+        //        transform.position = newPos;
+        //        print("mouse moved down");
+        //    } else if(Input.GetAxis("Mouse Y") > 0)
+        //    {
+        //        //transform.Translate(0, panSpeed * Time.deltaTime, 0);
+        //        Vector3 newPos = transform.position + Vector3.up * verticalInput * Time.deltaTime * panSpeed;
+        //        transform.position = newPos;
+        //        print("mouse moved up");
+        //    }
             
+        //}
+        if(Input.GetMouseButton(2))
+        {
+            float horizontalInput = Input.GetAxis("Mouse X");
+            float verticalInput = Input.GetAxis("Mouse Y");
+
+            // Calculate camera-relative pan direction
+            Vector3 right = transform.right;
+            Vector3 up = transform.up;
+
+            // Move both the camera and the grid target together
+            Vector3 move = (-right * horizontalInput + -up * verticalInput) * panSpeed * Time.deltaTime;
+            transform.position += move;
+            gridObject.transform.position += move;
+
+            offset = transform.position - gridObject.transform.position;
         }
     }
 
