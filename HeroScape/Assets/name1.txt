@@ -1,0 +1,1 @@
+{"name":"name1","description":"desc","goal":"go","setup":"set","victory":"vicee","specialRules":"rule","terrainPieces":{"(27, 0, 29)":{"terrainType":0,"size":2,"rotations":0},"(27, 0, 33)":{"terrainType":0,"size":1,"rotations":0}}}

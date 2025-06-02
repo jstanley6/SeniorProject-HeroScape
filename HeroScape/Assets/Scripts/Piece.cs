@@ -29,6 +29,7 @@ public class Piece : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoi
     public Material highlightMat;
     public Material selectedMat;
     public Vector3Int gridPosition = new Vector3Int(0, 0, 0);
+    public int rotations;
 
     public void OnPointerClick(PointerEventData eventData)
     {
