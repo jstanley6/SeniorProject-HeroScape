@@ -62,7 +62,7 @@ public class SaveLoadManager : MonoBehaviour
             }
         }
         fileName = sb.ToString();
-        string path = Application.dataPath + "/" + fileName + ".txt";
+        string path = Application.dataPath + "/" + fileName + ".json";
 
         string content = JsonConvert.SerializeObject(scenario);
         File.WriteAllText(path, content);
@@ -81,7 +81,7 @@ public class SaveLoadManager : MonoBehaviour
             }
         }
         fileName = sb.ToString();
-        string path = Application.dataPath + "/" + fileName + ".txt";
+        string path = Application.dataPath + "/" + fileName + ".json";
         string content = File.ReadAllText(path);
         Scenario scenario = JsonConvert.DeserializeObject<Scenario>(content);
         nameText.text = scenario.name;
