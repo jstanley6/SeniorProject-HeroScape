@@ -27,6 +27,9 @@ public class CameraControl : MonoBehaviour
     public EventSystem eventSystem;
 
     public RectTransform scrollViewport;
+    public RectTransform descMenuViewport;
+
+    public InputField searchBar;
 
     private bool isIsometric = false;
 
@@ -72,12 +75,14 @@ public class CameraControl : MonoBehaviour
 
     void zooming()
     {
-        if (scrollViewport != null)
+        if (descMenuViewport != null || scrollViewport != null)
         {
             Vector2 mousePos = Input.mousePosition;
             if (RectTransformUtility.RectangleContainsScreenPoint(scrollViewport, mousePos))
             {
-                // Cancel zoom if the user is interacting with the scroll view
+                return;
+            } else if(RectTransformUtility.RectangleContainsScreenPoint(descMenuViewport, mousePos) && descMenuViewport.gameObject.activeSelf)
+            {
                 return;
             }
         }
@@ -91,14 +96,13 @@ public class CameraControl : MonoBehaviour
             transform.position = gridObject.transform.position + offset.normalized * distance;
 
             offset = transform.position - gridObject.transform.position;
-
-            transform.LookAt(gridObject.transform.position);
         }
         
     }
 
     void panChangeLocation()
     {
+        // Old panning system (single axis)
         //if (Input.GetMouseButton(2))
         //{
         //    float verticalInput = Input.GetAxis("Mouse Y");
@@ -216,33 +220,34 @@ public class CameraControl : MonoBehaviour
 
     void viewSnapping()
     {
-        if(Input.GetKey("1"))
-        {
-            snapToAngle(Vector3.forward);
-        }
-        if(Input.GetKey("2"))
-        {
-            snapToAngle(Vector3.back);
-        }
-        if(Input.GetKey("3"))
-        {
-            snapToAngle(Vector3.left);
-        }
-        if (Input.GetKey("4"))
-        {
-            snapToAngle(Vector3.right);
-        }
-        if(Input.GetKey("5"))
-        {
-            snapToAngle(Vector3.up);
-        }
-        if(Input.GetKey("6"))
-        {
-            resetCamera();
-        }
-        if(Input.GetKeyDown(KeyCode.I))
-        {
-            isometricView();
-        }
+            if (Input.GetKey("1"))
+            {
+                snapToAngle(Vector3.forward);
+            }
+            else if (Input.GetKey("2"))
+            {
+                snapToAngle(Vector3.back);
+            }
+            else if (Input.GetKey("3"))
+            {
+                snapToAngle(Vector3.left);
+            }
+            else if (Input.GetKey("4"))
+            {
+                snapToAngle(Vector3.right);
+            }
+            else if (Input.GetKey("5"))
+            {
+                snapToAngle(Vector3.up);
+            }
+            else if (Input.GetKey("6"))
+            {
+                resetCamera();
+            }
+            else if (Input.GetKeyDown(KeyCode.I))
+            {
+                isometricView();
+            }
+        
     }
 }
