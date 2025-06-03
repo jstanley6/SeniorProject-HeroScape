@@ -18,10 +18,13 @@ public class SaveLoadManager : MonoBehaviour
     public Text setupText;
     public Text victoryText;
     public Text specialRulesText;
+    public List<GameObject> prefabs = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameObject[] tileObjects = Resources.LoadAll<GameObject>("HexTilePrefabs");
+        prefabs = tileObjects.ToList();
     }
 
     // Update is called once per frame
@@ -44,9 +47,9 @@ public class SaveLoadManager : MonoBehaviour
             //scenario.terrainPieces.ElementAt<Vector3Int>(item.Key)
             SimplePiece piece = new SimplePiece();
             piece.terrainType = item.Value.terrainType;
-            piece.size = item.Value.size;
+            piece.pieceSize = item.Value.size;
             piece.rotations = item.Value.rotations;
-            scenario.terrainPieces.Add(item.Key, piece);
+            scenario.terrainPieces.Add(new KeyValuePair<Vector3Int, SimplePiece>(item.Key, piece));
         }
 
         string fileName;
@@ -67,7 +70,45 @@ public class SaveLoadManager : MonoBehaviour
 
     public void ImportJson()
     {
+        editor.ClearAll();
+        string fileName;
+        StringBuilder sb = new StringBuilder();
+        foreach (char c in nameText.text)
+        {
+            if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '.' || c == ' ' || c == '_')
+            {
+                sb.Append(c);
+            }
+        }
+        fileName = sb.ToString();
+        string path = Application.dataPath + "/" + fileName + ".txt";
+        string content = File.ReadAllText(path);
+        Scenario scenario = JsonConvert.DeserializeObject<Scenario>(content);
+        nameText.text = scenario.name;
+        descriptionText.text = scenario.description;
+        goalText.text = scenario.goal;
+        setupText.text = scenario.setup;
+        victoryText.text = scenario.victory;
+        specialRulesText.text = scenario.specialRules;
 
+        foreach (var item in scenario.terrainPieces)
+        {
+            foreach (GameObject prefab in prefabs)
+            {
+                if (prefab.name.Equals(item.Value.pieceSize.ToString() + item.Value.terrainType.ToString()))
+                {
+                    GameObject newPiece = Instantiate(prefab);
+                    newPiece.transform.position = editor.grid.gridHexXZLayers[item.Key.y].GetWorldPosition(item.Key.x, item.Key.z) + new Vector3(0, (float) item.Key.y / 5f, 0);
+                    //item.Key;
+                    newPiece.GetComponent<Piece>().rotations = item.Value.rotations;
+                    newPiece.transform.eulerAngles = new Vector3(0, 60 * item.Value.rotations, 0);
+                    editor.ClickedOnPiece(newPiece.GetComponent<Piece>());
+                    editor.ClickedOnPiece(newPiece.GetComponent<Piece>());
+                    editor.LetGoOfPiece();
+                    break;
+                }
+            }
+        }
     }
 
     private class Scenario
@@ -78,12 +119,13 @@ public class SaveLoadManager : MonoBehaviour
         public string setup;
         public string victory;
         public string specialRules;
-        public Dictionary<Vector3Int, SimplePiece> terrainPieces = new Dictionary<Vector3Int, SimplePiece>();
+        public List<KeyValuePair<Vector3Int, SimplePiece>> terrainPieces = new List<KeyValuePair<Vector3Int, SimplePiece>>();
+        //Dictionary<Vector3Int, SimplePiece> terrainPieces = new Dictionary<Vector3Int, SimplePiece>();
     }
     private class SimplePiece
     {
         public TerrainType terrainType;
-        public PieceSize size;
+        public PieceSize pieceSize;
         public int rotations;
     }
 }
