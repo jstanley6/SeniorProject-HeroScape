@@ -19,7 +19,6 @@ public class EditorController : MonoBehaviour
 
     public bool pieceSelected = false;
     public bool holdingPiece = false;
-    public string scenarioName;
 
     public class ItemInGrid
     {
