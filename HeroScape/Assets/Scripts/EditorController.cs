@@ -14,11 +14,12 @@ public class EditorController : MonoBehaviour
     public int activelayer = 0;
     public Mouse3D mouse;
     public GameObject transformWidget;
-    Dictionary<Vector3Int, Piece> terrainPieces = new Dictionary<Vector3Int, Piece>();
+    public Dictionary<Vector3Int, Piece> terrainPieces = new Dictionary<Vector3Int, Piece>();
     Dictionary<Vector3Int, ItemInGrid> hexContents = new Dictionary<Vector3Int, ItemInGrid>();
 
     public bool pieceSelected = false;
     public bool holdingPiece = false;
+    public string scenarioName;
 
     public class ItemInGrid
     {
@@ -124,6 +125,15 @@ public class EditorController : MonoBehaviour
         if (!CheckForOverlap(selectedPiece))
         {
             bool successfulAdd = PlacePiece(selectedPiece);
+            selectedPiece.rotations += direction;
+            if(selectedPiece.rotations > 5)
+            {
+                selectedPiece.rotations = 0;
+            }
+            if (selectedPiece.rotations > 5)
+            {
+                selectedPiece.rotations = 0;
+            }
             if (!successfulAdd)
             {
                 selectedPiece.transform.Rotate(0, direction * -60, 0);
@@ -278,10 +288,23 @@ public class EditorController : MonoBehaviour
     public bool DeletePiece()
     {
         pieceSelected = false;
+        terrainPieces.Remove(selectedPiece.gridPosition);
         LiftPiece(selectedPiece);
         Destroy(selectedPiece.gameObject);
         selectedPiece = null;
         transformWidget.gameObject.SetActive(false);
         return true;
+    }
+
+    public void ClearAll()
+    {
+        if(holdingPiece)
+            DeletePiece();
+        foreach (var item in terrainPieces)
+        {
+            Destroy(item.Value.gameObject);
+        }
+        terrainPieces.Clear();
+        hexContents.Clear();
     }
 }
