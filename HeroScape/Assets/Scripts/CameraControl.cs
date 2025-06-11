@@ -20,8 +20,7 @@ public class CameraControl : MonoBehaviour
 
     private Quaternion targetRotation;
 
-    public float panSpeed = 5f;
-    private Vector3 lastPosition;
+    public float panSpeed = 10f;
 
     public GraphicRaycaster uiRaycaster;
     public EventSystem eventSystem;
@@ -49,6 +48,14 @@ public class CameraControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        GameObject selectedObj = EventSystem.current.currentSelectedGameObject;
+        if(selectedObj != null)
+        {
+            if(selectedObj.GetComponent<UnityEngine.UI.InputField>() != null)
+            {
+                return;
+            }
+        }
 
         Rotation();
         zooming();
@@ -62,9 +69,6 @@ public class CameraControl : MonoBehaviour
         {
             float horizontalInput = Input.GetAxis("Mouse X");
             float verticalInput = -1 * Input.GetAxis("Mouse Y");
-
-            //transform.Rotate(Vector3.up, horizontalInput * rotationSpeed * Time.deltaTime);
-            //transform.Rotate(Vector3.left, verticalInput * rotationSpeed * Time.deltaTime);
 
             transform.RotateAround(gridObject.transform.position, Vector3.up, horizontalInput * rotationSpeed * Time.deltaTime);
             transform.RotateAround(gridObject.transform.position, transform.right, verticalInput * rotationSpeed * Time.deltaTime);
@@ -179,8 +183,6 @@ public class CameraControl : MonoBehaviour
 
     void snapToAngle(Vector3 direction)
     {
-        //transform.position = gridObject.transform.position + direction.normalized * distance;
-        //transform.LookAt(gridObject.transform.position);
         Vector3 targetPosition = gridObject.transform.position + direction.normalized * distance;
         Quaternion targetRotation = Quaternion.LookRotation(gridObject.transform.position - targetPosition);
 
@@ -212,8 +214,6 @@ public class CameraControl : MonoBehaviour
 
     void resetCamera()
     {
-        //transform.position = initialPosition;
-        //transform.rotation = initialRotation;
         StopAllCoroutines();
         StartCoroutine(SmoothMoveAndRotate(initialPosition, initialRotation));
     }
