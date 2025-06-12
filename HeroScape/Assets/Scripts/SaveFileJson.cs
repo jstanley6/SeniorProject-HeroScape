@@ -29,7 +29,7 @@ public class SaveFileJson : MonoBehaviour, IPointerDownHandler {
 
     // Called from browser
     public void OnFileDownload() {
-        output.text = "File Successfully Downloaded";
+        //output.text = "File Successfully Downloaded";
     }
 #else
     //

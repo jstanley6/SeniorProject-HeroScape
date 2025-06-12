@@ -37,8 +37,8 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.31087863, g: 0.33026183, b: 0.3529935, a: 1}
+  m_Sun: {fileID: 1468343835}
+  m_IndirectSpecularColor: {r: 0.5862777, g: 0.60190934, b: 0.6192569, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1574,7 +1574,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
+  m_AllowDynamicResolution: 1
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -7786,7 +7786,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 510751932}
   m_HandleRect: {fileID: 510751931}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 0.00000020687568
   m_Size: 0.69473225
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -11632,7 +11632,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -16656,7 +16656,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
+  m_AllowDynamicResolution: 1
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10

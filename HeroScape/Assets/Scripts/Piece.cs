@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,8 +19,9 @@ public class Piece : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoi
     {
 
     }
-
+    [Serializable]
     public enum TerrainType { Grass, Sand, Stone, Water };
+    [Serializable]
     public enum PieceSize { s1, s2, s3, s7, s24 };
 
     private EditorController editor;

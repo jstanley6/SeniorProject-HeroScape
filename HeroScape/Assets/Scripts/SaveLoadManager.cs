@@ -10,9 +10,11 @@ using UnityEngine.UI;
 using SFB;
 using System.Runtime.InteropServices;
 using static Piece;
+using System;
 
 public class SaveLoadManager : MonoBehaviour
 {
+    [Serializable]
     private class Scenario
     {
         public string name;
@@ -21,14 +23,31 @@ public class SaveLoadManager : MonoBehaviour
         public string setup;
         public string victory;
         public string specialRules;
-        public List<KeyValuePair<Vector3Int, SimplePiece>> terrainPieces = new List<KeyValuePair<Vector3Int, SimplePiece>>();
+        public List<KeyValuePair<Vector3Int, SimplePiece>> terrainPieces;
         //Dictionary<Vector3Int, SimplePiece> terrainPieces = new Dictionary<Vector3Int, SimplePiece>();
+
+        public Scenario() 
+        {
+            name = "";
+            description = "";
+            goal = "";
+            setup = "";
+            victory = "";
+            specialRules = "";
+            terrainPieces = new List<KeyValuePair<Vector3Int, SimplePiece>>();
+        }
     }
+    [Serializable]
     private class SimplePiece
     {
         public TerrainType terrainType;
         public PieceSize pieceSize;
         public int rotations;
+
+        public SimplePiece()
+        {
+            rotations = 0;
+        }
     }
 
 
@@ -69,15 +88,18 @@ public class SaveLoadManager : MonoBehaviour
 
     public void BuildJson()
     {
-        Scenario scenario = new Scenario();
-        scenario.name = nameText.text;
-        scenario.description = descriptionText.text;
-        scenario.goal = goalText.text;
-        scenario.setup = setupText.text;
-        scenario.victory = victoryText.text;
-        scenario.specialRules = specialRulesText.text;
+        Scenario scenario = new Scenario
+        {
+            name = nameText.text,
+            description = descriptionText.text,
+            goal = goalText.text,
+            setup = setupText.text,
+            victory = victoryText.text,
+            specialRules = specialRulesText.text,
+            terrainPieces = new List<KeyValuePair<Vector3Int, SimplePiece>>()
+    };
         //scenario.terrainPieces = editor.terrainPieces;
-        foreach(var item in editor.terrainPieces)
+        foreach (var item in editor.terrainPieces)
         {
             //scenario.terrainPieces.ElementAt<Vector3Int>(item.Key)
             SimplePiece piece = new SimplePiece();
@@ -161,62 +183,5 @@ public class SaveLoadManager : MonoBehaviour
                 }
             }
         }
-    }/*
-#if UNITY_WEBGL && !UNITY_EDITOR
-    //
-    // WebGL
-    //
-    [DllImport("__Internal")]
-    private static extern void DownloadFile(string gameObjectName, string methodName, string filename, byte[] byteArray, int byteArraySize);
-    
-    [DllImport("__Internal")]
-    private static extern void UploadFile(string gameObjectName, string methodName, string filter, bool multiple);
-
-    public void UploadFileToJson() {
-        UploadFile(gameObject.name, "OnFileUpload", ".json", false);
     }
-
-    // Called from browser
-    public void OnFileUpload(string url) {
-        OutputRoutine(url);
-    }
-
-    // Broser plugin should be called in OnPointerDown.
-    public void DownloadJsonToFile(string name, string content) {
-        var bytes = Encoding.UTF8.GetBytes(content);
-        DownloadFile(gameObject.name, "OnFileDownload", name + ".json", bytes, bytes.Length);
-    }
-
-    // Called from browser
-    public void OnFileDownload() {
-        print("File Successfully Downloaded");
-    }
-#else
-    //
-    // Standalone platforms & editor
-    //
-
-    public void DownloadJsonToFile(string name, string content)
-    {
-        var path = StandaloneFileBrowser.SaveFilePanel("Save Scenario", "", name, "json");
-        if (!string.IsNullOrEmpty(path))
-        {
-            File.WriteAllText(path, content);
-        }
-    }
-    public void UploadFileToJson()
-    {
-        var paths = StandaloneFileBrowser.OpenFilePanel("Open Scenario", "", "json", false);
-        if (paths.Length > 0)
-        {
-            OutputRoutine(new System.Uri(paths[0]).AbsoluteUri);
-        }
-    }
-#endif
-    private void OutputRoutine(string url)
-    {
-        var loader = new WWW(url);
-        print("File Successfully Uploaded");
-        fileContent = loader.text;
-    }*/
 }
