@@ -40,7 +40,8 @@ public class SaveLoadManager : MonoBehaviour
     public InputField victoryText;
     public InputField specialRulesText;
     public List<GameObject> prefabs = new List<GameObject>();
-    private string uploadedContent;
+    public string fileName;
+    public string fileContent;
 
 
     // Start is called before the first frame update
@@ -86,7 +87,6 @@ public class SaveLoadManager : MonoBehaviour
             scenario.terrainPieces.Add(new KeyValuePair<Vector3Int, SimplePiece>(item.Key, piece));
         }
 
-        string fileName;
         StringBuilder sb = new StringBuilder();
         foreach (char c in nameText.text)
         {
@@ -98,15 +98,34 @@ public class SaveLoadManager : MonoBehaviour
         fileName = sb.ToString();
         //string path = Application.dataPath + "/" + fileName + ".json";
 
-        string content = JsonConvert.SerializeObject(scenario, Newtonsoft.Json.Formatting.Indented);
+        fileContent = JsonConvert.SerializeObject(scenario, Newtonsoft.Json.Formatting.Indented);
         //File.WriteAllText(path, content);
-        DownloadJsonToFile(fileName, content);
+        //DownloadJsonToFile(fileName, content);
     }
 
     public void LoadFromJson()
     {
         editor.ClearAll();
         //string fileName;
+        /*StringBuilder sb = new StringBuilder();
+        foreach (char c in nameText.text)
+        {
+            if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '.' || c == ' ' || c == '_')
+            {
+                sb.Append(c);
+            }
+        }*/
+        //fileName = sb.ToString();
+        //string path = Application.dataPath + "/" + fileName + ".json";
+        //string content = File.ReadAllText(path);
+        //UploadFileToJson();
+        Scenario scenario = JsonConvert.DeserializeObject<Scenario>(fileContent);
+        nameText.text = scenario.name;
+        descriptionText.text = scenario.description;
+        goalText.text = scenario.goal;
+        setupText.text = scenario.setup;
+        victoryText.text = scenario.victory;
+        specialRulesText.text = scenario.specialRules;
         StringBuilder sb = new StringBuilder();
         foreach (char c in nameText.text)
         {
@@ -115,17 +134,7 @@ public class SaveLoadManager : MonoBehaviour
                 sb.Append(c);
             }
         }
-        //fileName = sb.ToString();
-        //string path = Application.dataPath + "/" + fileName + ".json";
-        //string content = File.ReadAllText(path);
-        UploadFileToJson();
-        Scenario scenario = JsonConvert.DeserializeObject<Scenario>(uploadedContent);
-        nameText.text = scenario.name;
-        descriptionText.text = scenario.description;
-        goalText.text = scenario.goal;
-        setupText.text = scenario.setup;
-        victoryText.text = scenario.victory;
-        specialRulesText.text = scenario.specialRules;
+        fileName = sb.ToString();
 
         foreach (var item in scenario.terrainPieces)
         {
@@ -134,14 +143,17 @@ public class SaveLoadManager : MonoBehaviour
                 if (prefab.name.Equals(item.Value.pieceSize.ToString() + item.Value.terrainType.ToString()))
                 {
                     GameObject newPiece = Instantiate(prefab);
-                    while (editor.grid.gridHexXZLayers.Count < item.Key.y)
+                    editor.activelayer = item.Key.y;
+                    while (editor.grid.gridHexXZLayers.Count <= item.Key.y)
                     {
                         editor.grid.AddLayer();
                     }
+                    print(item.Key.y / 5f);
                     newPiece.transform.position = editor.grid.gridHexXZLayers[item.Key.y].GetWorldPosition(item.Key.x, item.Key.z) + new Vector3(0, item.Key.y / 5f, 0);
                     //item.Key;
                     newPiece.GetComponent<Piece>().rotations = item.Value.rotations;
                     newPiece.transform.eulerAngles = new Vector3(0, 60 * item.Value.rotations, 0);
+                    newPiece.GetComponent<Piece>().gridPosition = item.Key;
                     editor.ClickedOnPiece(newPiece.GetComponent<Piece>());
                     editor.ClickedOnPiece(newPiece.GetComponent<Piece>());
                     editor.LetGoOfPiece();
@@ -149,7 +161,7 @@ public class SaveLoadManager : MonoBehaviour
                 }
             }
         }
-    }
+    }/*
 #if UNITY_WEBGL && !UNITY_EDITOR
     //
     // WebGL
@@ -205,6 +217,6 @@ public class SaveLoadManager : MonoBehaviour
     {
         var loader = new WWW(url);
         print("File Successfully Uploaded");
-        uploadedContent = loader.text;
-    }
+        fileContent = loader.text;
+    }*/
 }
