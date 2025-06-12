@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Linq;
-using UnityEditor.Animations;
 using UnityEngine;
 using static HexGrid;
 
@@ -299,6 +296,9 @@ public class EditorController : MonoBehaviour
     {
         if(holdingPiece)
             DeletePiece();
+        pieceSelected = false;
+        selectedPiece = null;
+        holdingPiece = false;
         foreach (var item in terrainPieces)
         {
             Destroy(item.Value.gameObject);

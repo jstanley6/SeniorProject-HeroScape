@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.31087863, g: 0.3302619, b: 0.35299355, a: 1}
+  m_IndirectSpecularColor: {r: 0.31087863, g: 0.33026183, b: 0.3529935, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2751,7 +2751,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Open Scenario
+  m_Text: Save Scenario
 --- !u!222 &310966846
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4410,7 +4410,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &546749787
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5541,7 +5541,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &709384072
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6578,7 +6578,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 702703470}
   m_HandleRect: {fileID: 702703469}
   m_Direction: 2
-  m_Value: 1.0000001
+  m_Value: 1
   m_Size: 0.32644984
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -7572,7 +7572,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 510751932}
   m_HandleRect: {fileID: 510751931}
   m_Direction: 0
-  m_Value: 0.00000020687568
+  m_Value: 0
   m_Size: 0.69473225
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -7940,12 +7940,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   editor: {fileID: 598907122}
-  nameText: {fileID: 846890784235633446}
-  descriptionText: {fileID: 256800845}
-  goalText: {fileID: 150679138}
-  setupText: {fileID: 1631095489}
-  victoryText: {fileID: 2057114205}
-  specialRulesText: {fileID: 493583723}
+  nameText: {fileID: 846890783461029419}
+  descriptionText: {fileID: 1929601114}
+  goalText: {fileID: 711319750}
+  setupText: {fileID: 234615558}
+  victoryText: {fileID: 1478903492}
+  specialRulesText: {fileID: 1772950362}
   prefabs: []
 --- !u!4 &1035616427
 Transform:
@@ -9865,7 +9865,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Export Scenario
+  m_Text: Load Scenario
 --- !u!222 &1296910782
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12729,7 +12729,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1584914340}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1035616426}
+        m_TargetAssemblyTypeName: SaveLoadManager, Assembly-CSharp
+        m_MethodName: NewScenario
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1584914340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12986,7 +12998,7 @@ GameObject:
   - component: {fileID: 1625330451}
   - component: {fileID: 1625330450}
   m_Layer: 5
-  m_Name: Open Scanerio
+  m_Name: Save Scanerio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13058,7 +13070,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1035616426}
         m_TargetAssemblyTypeName: SaveLoadManager, Assembly-CSharp
-        m_MethodName: ImportJson
+        m_MethodName: BuildJson
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15540,7 +15552,7 @@ GameObject:
   - component: {fileID: 1964332218}
   - component: {fileID: 1964332217}
   m_Layer: 5
-  m_Name: Export Scenario
+  m_Name: Load Scenario
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15612,7 +15624,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1035616426}
         m_TargetAssemblyTypeName: SaveLoadManager, Assembly-CSharp
-        m_MethodName: ExportJson
+        m_MethodName: LoadFromJson
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
